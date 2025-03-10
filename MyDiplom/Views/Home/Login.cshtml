@@ -1,0 +1,87 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<style>
+    nav {
+        width: 600px;
+    }
+</style>
+<nav>
+    <a href="@Url.Action("Main_no_auth", "Home")" class="nav-icon-left">
+        <img src="~/css/Main_Icon.png" alt="Profile Icon" class="profile-icon">
+    </a>
+    <div class="nav-links">
+        <a href="@Url.Action("Main_no_auth", "Home")">Главная</a>
+        <a href="@Url.Action("List_employee_no_auth", "List")">Воспитатели</a>
+        <div class="animation"></div>
+    </div>
+   
+    <a href="@Url.Action("Login", "Home")" class="nav-icon-right">
+        <img src="~/css/log_in.png" alt="Login Icon" class="log-icon">
+    </a>
+
+</nav>
+
+<div class="form-container">
+    <h2>Авторизация</h2>
+   @*  <br /> <br />
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+        <div class="form-group">
+           
+            @Html.TextBox("username", null, new { @class = "form-control", @placeholder = "Логин" })
+        </div>
+        <div class="form-group">
+            
+            @Html.Password("password", null, new { @class = "form-control", @placeholder = "Пароль" })
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn block-cube block-cube-hover">Войти</button>
+        </div>
+        @if (ViewBag.ErrorMessage != null)
+        {
+            <div class="error-message">@ViewBag.ErrorMessage</div>
+        }
+    }
+</div> *@
+    <br /> <br />
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.TextBox("username", null, new { @class = "form-control", @placeholder = "Логин", required = "required" })
+            @Html.ValidationMessage("username", "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.Password("password", null, new { @class = "form-control", @placeholder = "Пароль", required = "required" })
+            @Html.ValidationMessage("password", "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn block-cube block-cube-hover">Войти</button>
+        </div>
+        @if (ViewBag.ErrorMessage != null)
+        {
+            <div class="error-message text-danger">@ViewBag.ErrorMessage</div>
+        }
+    }
+</div>
+
+<script type="text/javascript">
+    // Check if there is an error message in ViewBag and display an alert
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <text>
+                alert("@ViewBag.ErrorMessage");
+        </text>
+    }
+
+        // Alternatively, you can display an alert when the form is submitted
+        document.querySelector('form').addEventListener('submit', function (event) {
+            // Prevent the form from submitting if there are validation errors
+            if (!this.checkValidity()) {
+                event.preventDefault();
+                alert("Please fill in all required fields.");
+            }
+        });
+</script>

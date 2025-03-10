@@ -1,0 +1,105 @@
+﻿@model List<MyDiplom.Models.Child>
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <style>
+        nav {
+            width: 1000px;
+        }
+
+
+        .employee-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .employee-info {
+            display: flex;
+            align-items: center;
+        }
+
+            .employee-info div {
+                margin-left: 10px;
+                opacity: 0; /* Скрываем текст по умолчанию */
+                visibility: hidden; /* Скрываем текст по умолчанию */
+                transition: opacity 0.3s ease, visibility 0.3s ease; /* Плавный переход */
+            }
+
+        .employee-card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            margin-bottom: 20px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative; /* Для позиционирования текста */
+            overflow: hidden; /* Скрываем элементы, выходящие за пределы карточки */
+        }
+
+            .employee-card:hover {
+                transform: scale(1.02);
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            }
+
+                .employee-card:hover div {
+                    opacity: 1; /* Показываем текст при наведении */
+                    visibility: visible; /* Показываем текст при наведении */
+                }
+
+        .employee-info p {
+            margin: 5px 0;
+        }
+
+        .employee-info label {
+            display: block; /* Чтобы каждый элемент занимал свою строку */
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="@Url.Action("Index", "Home",new {  id = ViewBag.UserId })" class="nav-icon-left">
+            <img src="~/css/Main_Icon.png" alt="Profile Icon" class="profile-icon">
+        </a>
+        <div class="nav-links">
+            <a href="@Url.Action("Index", "Home",new {  id = ViewBag.UserId })">Главная</a>
+            <a href="@Url.Action("List_employee", "List")">Воспитатели</a>
+            <a href="@Url.Action("List_Group", "List")">Группы</a>
+            <a href="@Url.Action("Messenger", "Chat" )">Сообщения</a>
+            <div class="animation"></div>
+        </div>
+        <a href="@Url.Action("Account", "UserAccount", new {  id = ViewBag.UserId })">
+            <img src="~/css/my_acc.png" alt="Profile Icon" class="profile-icon">
+        </a>
+        <a href="@Url.Action("Main_no_auth", "Home")">
+            <img src="~/css/out.png" alt="Profile Icon" class="profile-icon">
+        </a>
+    </nav>
+    <div class="container">
+        <h1>Список детей в группе</h1>
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-4">
+                    <div class="employee-card">
+                        <div class="employee-info">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2854/2854354.png" class="employee-img" />
+                            <div>
+                                <label>@item.LastName @item.FirstName</label>
+                                <label>Дата рождения: @item.Birthdate</label>
+                                <label>Родитель: @item.ParentId</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</body>
+</html>

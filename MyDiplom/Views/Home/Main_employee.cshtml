@@ -1,0 +1,85 @@
+﻿<style>
+    nav {
+        width: 800px;
+    }
+
+</style>
+@model User // Убедитесь, что указываете правильное пространство имен
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.cycle2/2.1.6/jquery.cycle2.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.cycle2/2.1.6/jquery.cycle2.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+    <nav style="width:1000px">
+        <a href="@Url.Action("Main_employee", "Home")" class="nav-icon-left">
+            <img src="~/css/Main_Icon.png" alt="Profile Icon" class="profile-icon">
+        </a>
+        <div class="nav-links">
+            <a href="@Url.Action("Main_employee", "Home", new {  id = ViewBag.UserId })">Главная</a>
+            <a href="@Url.Action("List_employee_emp", "List")">Воспитатели</a>
+            <a href="@Url.Action("List_Group_employee", "List")">Расписание</a>
+            <a href="@Url.Action("Messenger_emp", "Chat" )">Сообщения</a>
+            <div class="animation"></div>
+        </div>
+        <a href="@Url.Action("Account_employee", "UserAccount", new {  id = ViewBag.UserId })">
+            <img src="~/css/my_acc.png" alt="Profile Icon" class="profile-icon">
+        </a>
+        <a href="@Url.Action("Main_no_auth", "Home")">
+            <img src="~/css/out.png" alt="Profile Icon" class="profile-icon">
+        </a>
+    </nav>
+
+    <!--Баннер -->
+
+    <div id="content-ob" class="cycle-slideshow" data-cycle-fx="scrollHorz" data-cycle-timeout="0" data-cycle-speed="1000" data-cycle-slides="a" data-cycle-pager=".custom-pager" data-cycle-prev=".cycle-prev" data-cycle-next=".cycle-next" data-cycle-pager-template="<a href=# class='custom-pager-button'></a>">
+        <a href="#"><img src="~/css/banner1.jpg" alt="Image 1"></a>
+        <a href="#"><img src="~/css/banner2.jpg" alt="Image 2"></a>
+        <a href="#"><img src="~/css/banner3.jpg" alt="Image 3"></a>
+        <div id="progress"></div>
+        <div class="custom-pager"></div>
+        <button class="cycle-prev">❮</button>
+        <button class="cycle-next">❱</button>
+    </div>
+    <!-- Блок с текстом -->
+    <div class="info-block">
+        <h2>Для наших деток созданы 3 группы:</h2>
+        <ul>
+            <li>малыши от года до 2,2 лет,</li>
+            <li>средние детки – от 2 до 3,2 лет,</li>
+            <li>и старшая группа от 3 до 4,5 лет.</li>
+        </ul>
+        <p>У нас пятиразовое питание Халяль, аллергостол, множество развивающих занятий, которые проходят в игровой форме, ежедневные прогулки. Гуляют малыши на разрешенной площадке дома. У каждой группы – отдельно своя игровая и отдельно спальные комнаты. Также в филиале отдельная комната для занятий, оборудованная столовая. На территории установлены охранная и пожарная сигнализация, а также тревожная кнопка.</p>
+    </div>
+
+    <!-- Новый блок с фото и текстом -->
+    <div class="features-block">
+        <img src="~/css/ph3.jpg" alt="Features Image" class="features-image">
+        <div class="features-text">
+            <h2>Почему нужно выбрать нас:</h2>
+            <ul>
+                <li>Безопасность</li>
+                <li>Здоровое, самое лучшее, и самое качественное питание, по стандарту Халяль. Собственное разработанное меню, согласно требованиям Роспотребнадзора</li>
+                <li>Оплата материнским капиталом</li>
+                <li>Внимание к каждому ребенку</li>
+                <li>Развиваем нестандартное мышление у детей</li>
+                <li>Поддерживаем «живость», интересы, любопытство и фантазию малышей</li>
+                <li>Опираемся на индивидуальные особенности каждого ребёнка</li>
+                <li>Уважаем потребность в личном пространстве и уединении</li>
+                <li>Дети развиваются среди ровесников и замечательно социально адаптируются</li>
+                <li>Утренники и родительские собрания</li>
+            </ul>
+        </div>
+    </div>
+
+
+
+</body>
+</html>

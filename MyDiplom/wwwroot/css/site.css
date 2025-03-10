@@ -1,0 +1,341 @@
+
+body {
+   
+    margin: 0; /* Убираем отступы по умолчанию */
+    padding: 0; /* Убираем отступы по умолчанию */
+    background: #ffeef2;
+    overflow: auto;
+    font-family: sans-serif;
+    
+}
+
+
+/* Стили для блока с текстом и изображениями */
+.info-block, .features-block {
+    margin-top: 20px;
+}
+
+.features-block {
+    display: flex; /* Используем flexbox для расположения изображения и текста */
+}
+
+.features-image {
+    max-width: 300px; /* Ограничение ширины изображения */
+    margin-right: 20px; /* Отступ между изображением и текстом */
+}
+
+.form-container {
+    padding: 50px 100px;
+    border: 2px dotted #ff6b8e;
+    box-shadow: 15px 15px 1px #FFEEF4, 15px 15px 1px 2px dotted #FFEEF4;
+    border-radius: 15px;
+    margin-top: 60px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+    border: none;
+    border-bottom: 5px solid rgba(0, 0, 0, 0.1);
+    background: #ffdbde; /* Основной цвет */
+    min-width: 250px;
+    padding-left: 5px;
+    outline: none;
+    color: #333; /* Цвет текста полей ввода */
+    border-radius: 5px;
+}
+
+    .form-control:focus {
+        border-bottom: 5px dotted #ffdbde;
+    }
+
+.btn {
+    display: flex;
+    justify-content: center;
+  /*  display: inline-block;*/
+    margin: 20px auto 0;
+    padding: 10px 20px;
+    background: #ffdbde; /* Основной цвет кнопки */
+    letter-spacing: 2px;
+    transition: .2s all ease-in-out;
+    outline: none;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 3px 3px 1px 1px dotted #FFEEF4, 3px 3px 1px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+    .btn:hover {
+        background: #ff6b8e; /* При наведении цвет кнопки */
+        color: white;
+    }
+
+::selection {
+    background: #ffdbde;
+}
+
+
+
+.banner {
+    width: 100%;
+    height: 30em;
+    background-color: #f4f4f4; /* Цвет фона баннера */
+    text-align: center;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+    .banner img {
+        width: 100%; /* Растягиваем изображение по ширине */
+        height: 27em; /* Растягиваем изображение по высоте */
+        object-fit: cover; /* Сохраняем пропорции и заполняем контейнер */
+    }
+.banner_p {
+    position: absolute; /* Позиционируем текст поверх изображения */
+    top: 15em;
+    left: 50%; /* Центрируем текст по горизонтали */
+    transform: translateX(-50%); /* Центрирование текста */
+    font-size: 24px; /* Размер шрифта */
+    color: #333; /* Цвет текста */
+    background-color: rgba(255, 192, 203, 0.8); /* Бледно-розовый фон с прозрачностью */
+    padding: 10px 20px; /* Отступы вокруг текста */
+}
+
+   
+
+/* Применяем красивый шрифт Roboto */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+.banner_p {
+    font-family: 'Roboto', sans-serif; /* Применяем красивый шрифт Roboto */
+}
+
+/* Стили для футера */
+footer {
+    background-color: #ffdbde; /* Светлый розовый цвет футера */
+    padding: 20px; /* Отступы внутри футера */
+}
+
+.footer-container {
+    display: flex; /* Используем Flexbox для выравнивания столбцов */
+    justify-content: space-between; /* Распределяем пространство между столбцами */
+    max-width: 1200px; /* Максимальная ширина футера */
+    margin: 0 auto; /* Центрируем футер */
+}
+
+.footer-column {
+    flex: 1; /* Каждый столбец занимает равное пространство */
+    margin: 0 10px; /* Отступы между столбцами */
+}
+
+    .footer-column h3 {
+        margin-bottom: 10px; /* Отступ под заголовком */
+    }
+
+    .footer-column ul {
+        list-style-type: none; /* Убираем маркеры списка */
+        padding: 0; /* Убираем отступы у списка */
+    }
+
+        .footer-column ul li {
+            margin-bottom: 5px; /* Отступ между элементами списка */
+        }
+
+    .footer-column a {
+        text-decoration: none; /* Убираем подчеркивание у ссылок */
+        color: #ff6b8e; /* Цвет ссылок (дополнительный цвет) */
+    }
+
+        .footer-column a:hover {
+            text-decoration: underline; /* Подчеркивание при наведении */
+        }
+
+nav {
+    margin: 27px auto 0;
+    position: relative;
+    width: 800px;
+    height: 50px;
+    background-color: #ffdbde;
+    border-radius: 8px;
+    font-size: 0;
+    display: flex;
+   /* justify-content: space-between;
+    align-items: center;*/
+}
+
+  
+nav a {
+  line-height: 50px;
+  height: 100%;
+  font-size: 15px;
+  display: inline-block;
+  position: relative;
+  z-index: 1;
+  text-decoration: none;
+  text-transform: uppercase;
+  text-align: center;
+  color: white;
+  cursor: pointer;
+}
+nav .animation {
+  position: absolute;
+  height: 100%;
+  top: 0;
+  z-index: 0;
+  transition: all .5s ease 0s;
+  border-radius: 8px;
+}
+
+.profile-icon, .log-icon {
+    width: 30px;
+    height: 30px;
+}
+
+a:nth-child(1) {
+    width: 130px;
+}
+
+a:nth-child(2) {
+    width: 140px;
+}
+
+a:nth-child(3) {
+    width: 100px;
+}
+
+a:nth-child(4) {
+    width: 160px;
+}
+
+a:nth-child(5) {
+    width: 120px;
+}
+
+nav .start-about, a:nth-child(1):hover ~ .animation {
+    width: 130px;
+    left: 130px;
+    background-color: #ff6b8e;
+}
+
+nav .start-blog, a:nth-child(2):hover ~ .animation {
+    width: 150px;
+    left: 250px;
+    background-color: #ff6b8e;
+}
+
+nav .start-portefolio, a:nth-child(3):hover ~ .animation {
+    width: 110px;
+    left: 400px;
+    background-color: #ff6b8e;
+}
+
+nav .start-contact, a:nth-child(4):hover ~ .animation {
+    width: 140px;
+    left: 510px;
+    background-color: #ff6b8e;
+}
+
+
+h1 {
+    text-align: center;
+    margin: 40px 0 40px;
+    text-align: center;
+    font-size: 30px;
+    color: #ecf0f1;
+    text-shadow: 2px 2px 4px #000000;
+    font-family: 'Cherry Swash', cursive;
+}
+h2 {
+    color: #ecf0f1;
+    text-shadow: 2px 2px 4px #000000;
+    font-family: 'Cherry Swash', cursive;
+}
+li {
+ 
+    font-family: 'Cherry Swash';
+}
+p {
+   
+    font-family: 'Cherry Swash'
+}
+
+label {
+    font-family: 'Cherry Swash'
+}
+.cycle-slideshow {
+    position: relative;
+    width: 100%;
+    max-width: 1200px; /* Adjust as needed */
+    max-height:350px;
+    margin: 20px auto 0; /* Add top margin to create space from the menu */
+    overflow: hidden;
+}
+
+    .cycle-slideshow a {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+
+    .cycle-slideshow img {
+        max-width: 100%;
+        height: 100%;
+        display: block; /* Ensure images are block elements */
+        object-fit: cover; /* Изображение будет обрезаться, чтобы заполнить контейнер */
+        object-position: center; /* Центрирование изображения */
+    }
+
+.custom-pager {
+    text-align: center;
+    margin-top: 10px;
+}
+
+a.custom-pager-button {
+    display: inline-block;
+    margin: 0 5px;
+    width: 29px;
+    height: 13px;
+    background-image: url(/img/newdis/ob-in.png);
+    background-position: left top;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+.custom-pager a.cycle-pager-active {
+    background-image: url(/img/newdis/ob.png) !important;
+    cursor: pointer;
+}
+
+#progress {
+    margin-top: 3px;
+    height: 3px;
+    width: 0px;
+    background: #860b70;
+    z-index: 500;
+}
+
+.cycle-prev, .cycle-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.cycle-prev {
+    left: 10px;
+}
+
+.cycle-next {
+    right: 10px;
+}

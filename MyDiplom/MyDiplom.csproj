@@ -1,0 +1,53 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\css\banner1.jpg" />
+    <Content Remove="wwwroot\css\banner2.jpg" />
+    <Content Remove="wwwroot\css\banner3.jpg" />
+    <Content Remove="wwwroot\css\child_icon.png" />
+    <Content Remove="wwwroot\css\log_in.png" />
+    <Content Remove="wwwroot\css\Main_Icon.png" />
+    <Content Remove="wwwroot\css\my_acc.png" />
+    <Content Remove="wwwroot\css\out.png" />
+    <Content Remove="wwwroot\css\ph2.jpg" />
+    <Content Remove="wwwroot\css\ph3.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="image\Main_Icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="IKVM" Version="8.11.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.3.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.SqlServer.Server" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="image\Main_Icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="wwwroot\css\banner1.jpg" />
+    <Resource Include="wwwroot\css\banner2.jpg" />
+    <Resource Include="wwwroot\css\banner3.jpg" />
+    <Resource Include="wwwroot\css\child_icon.png" />
+    <Resource Include="wwwroot\css\log_in.png" />
+    <Resource Include="wwwroot\css\Main_Icon.png" />
+    <Resource Include="wwwroot\css\my_acc.png" />
+    <Resource Include="wwwroot\css\out.png" />
+    <Resource Include="wwwroot\css\ph2.jpg" />
+    <Resource Include="wwwroot\css\ph3.jpg" />
+  </ItemGroup>
+
+</Project>

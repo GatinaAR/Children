@@ -1,0 +1,132 @@
+﻿@model Employee
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <title>Аккаунт пользователя</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+    <style>
+        body {
+           
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+      
+
+        .profile-icon {
+            width: 30px; /* Размер иконки профиля */
+        }
+
+        .content {
+            margin: 20px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 800px;
+        }
+
+        .row {
+            display: flex;
+            gap: 20px;
+        }
+
+        .col-md-4, .col-md-8 {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .col-md-4 {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .col-md-8 {
+            flex: 2;
+        }
+
+        .profile-image {
+            width: 150px; /* Размер изображения профиля */
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #ff6f61; /* Обводка */
+            margin-bottom: 20px;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+
+    
+    </style>
+</head>
+<body>
+    <nav style="width:1000px">
+        <a href="@Url.Action("Main_employee", "Home")" class="nav-icon-left">
+            <img src="~/css/Main_Icon.png" alt="Profile Icon" class="profile-icon">
+        </a>
+        <div class="nav-links">
+            <a href="@Url.Action("Main_employee", "Home", new {  id = ViewBag.UserId })">Главная</a>
+            <a href="@Url.Action("List_employee_emp", "List")">Воспитатели</a>
+            <a href="@Url.Action("List_Group_employee", "List")">Расписание</a>
+            <a href="@Url.Action("Messenger_emp", "Chat" )">Сообщения</a>
+            <div class="animation"></div>
+        </div>
+        <a href="@Url.Action("Account_employee", "UserAccount", new {  id = ViewBag.UserId })">
+            <img src="~/css/my_acc.png" alt="Profile Icon" class="profile-icon">
+        </a>
+        <a href="@Url.Action("Main_no_auth", "Home")">
+            <img src="~/css/out.png" alt="Profile Icon" class="profile-icon">
+        </a>
+    </nav>
+  
+<div class="content">
+    <div class="row">
+        <div class="col-md-4">
+            @if (Model.User.Photo != null)
+            {
+                <img src="@Url.Action("GetPhoto", "UserAccount", new { id = Model.UserId })" class="profile-image" />
+            }
+            else
+            {
+                <img src="~/css/ph3.jpg" class="profile-image" />
+            }
+
+            <form asp-action="UploadPhoto" asp-controller="UserAccount" method="post" enctype="multipart/form-data">
+                <div class="file-input-wrapper">
+                    <label for="file-upload" class="btn file-label">Выберите файл</label>
+                    <input id="file-upload" type="file" name="photo" accept="image/*" required class="file-input" />
+                    <input type="hidden" name="userId" value="@Model.UserId" />
+                    <button type="submit" class="btn">Загрузить фотографию</button>
+                </div>
+            </form>
+        </div>
+            <div class="col-md-8">
+                <h2>@Model.User.Username</h2>
+                <label>@Model.Email</label>
+                <br/>
+                <label>@Model.Position</label>
+                <br />
+                <label>@Model.Phone</label>
+            </div>
+
+        </div>
+</div>
+</body>
+</html>

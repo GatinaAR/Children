@@ -1,0 +1,87 @@
+﻿
+@{
+    ViewData["Title"] = "Страница регистрации";
+}
+
+<div class="top-menu">
+    <nav style="width:1000px;">
+        <a href="@Url.Action("Main_admin", "Home")" class="nav-icon-left">
+            <img src="~/css/Main_Icon.png" alt="Profile Icon" class="profile-icon">
+        </a>
+        <div class="nav-links">
+            <a href="@Url.Action("Main_admin", "Home")">Главная</a>
+            <a href="@Url.Action("List_employee_admin", "List")">Воспитатели</a>
+            <a href="@Url.Action("List_Group_admin", "List")">Группы</a>
+            <a href="@Url.Action("Register", "Home")">Регистрация</a>
+            <div class="animation"></div>
+        </div>
+        <a href="@Url.Action("Account_admin", "UserAccount", new { id = ViewBag.UserId })">
+            <img src="~/css/my_acc.png" alt="Profile Icon" class="profile-icon">
+        </a>
+        <a href="@Url.Action("Main_no_auth", "Home")">
+            <img src="~/css/out.png" alt="Profile Icon" class="profile-icon">
+        </a>
+
+    </nav>
+</div>
+
+<div class="form-container">
+    <h2>Регистрация</h2>
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+    @using (Html.BeginForm("Register", "Home", FormMethod.Post, new { @class = "contact-us" }))
+    {
+        @Html.ValidationSummary(true)
+        <div class="form-group">
+            @Html.TextBox("username", null, new { @class = "form-control", @placeholder = "Имя пользователя", required = "required" })
+            @Html.ValidationMessage("username", "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.Password("password", null, new { @class = "form-control", @placeholder = "Пароль", required = "required" })
+            @Html.ValidationMessage("password", "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.DropDownList("selectedRole", new SelectList(ViewBag.Roles, "RoleName", "RoleName"), "Выберите роль", new { @class = "form-control", required = "required" })
+            @Html.ValidationMessage("selectedRole", "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.TextBox("Email", null, new { @class = "form-control", @placeholder = "Электронная почта", @type = "email", required = "required" })
+            @Html.ValidationMessage("Email", "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.TextBox("phone", null, new { @class = "form-control", @placeholder = "Телефон (например, +1234567890)", @type = "tel", required = "required" })
+            @Html.ValidationMessage("phone", "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn block-cube block-cube-hover">Зарегистрировать</button>
+        </div>
+        @if (ViewBag.ErrorMessage != null)
+        {
+            <div class="error-message">@ViewBag.ErrorMessage</div>
+        }
+    }
+</div>
+
+<script type="text/javascript">
+    // Проверка на наличие сообщения об ошибке в ViewBag и отображение предупреждения
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <text>
+                alert("@ViewBag.ErrorMessage");
+        </text>
+    }
+
+        // Отображение предупреждения при отправке формы
+        document.querySelector('form').addEventListener('submit', function (event) {
+            // Предотвратить отправку формы, если есть ошибки валидации
+            if (!this.checkValidity()) {
+                event.preventDefault();
+                alert("Пожалуйста, заполните все обязательные поля.");
+            }
+        });
+</script>

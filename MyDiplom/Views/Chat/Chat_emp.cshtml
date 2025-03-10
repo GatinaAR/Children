@@ -1,0 +1,237 @@
+﻿@model List<MyDiplom.Models.Message>
+@{
+    ViewData["Title"] = "Чат";
+    int loginUser = ViewBag.UserId; // Используем UserId из ViewBag
+}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <style>
+        body {
+            background-color: #ffeef2;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            padding: 20px;
+        }
+
+        .chat-header {
+            display: flex;
+            align-items: center; /* Центрируем содержимое по вертикали */
+            margin-bottom: 20px;
+        }
+
+        .back-button {
+            background-color: #ff6b8e;
+            color: white;
+            padding: 5px 10px; /* Уменьшенные отступы */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em; /* Уменьшенный размер шрифта */
+            margin-right: 10px; /* Отступ справа */
+            transition: background-color 0.3s;
+        }
+
+            .back-button:hover {
+                background-color: #ff4d6e; /* Цвет кнопки при наведении */
+            }
+
+        .chat-header h4 {
+            margin: 0; /* Убираем отступы */
+            font-size: 1.2em; /* Размер шрифта для имени получателя */
+            color: #ff6b8e; /* Цвет текста */
+        }
+
+        .chat-messages {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background-color: white;
+            border: 2px dotted #ff6b8e;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* Выравнивание по левому краю */
+        }
+
+        .message {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 10px;
+            max-width: 60%;
+            word-wrap: break-word;
+            position: relative; /* Для позиционирования */
+            display: flex; /* Для размещения аватарки и текста */
+            align-items: center; /* Центрируем аватарку и текст по вертикали */
+        }
+
+            .message.sent {
+                background-color: #dcf8c6;
+                align-self: flex-end; /* Выравнивание сообщений отправителя вправо */
+                border: 1px solid #b2e8b2;
+            }
+
+            .message.received {
+                background-color: #ffffff;
+                align-self: flex-start; /* Выравнивание сообщений получателя влево */
+                border: 1px solid #ddd;
+            }
+
+        .user-avatar {
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            margin-right: 10px; /* Отступ между аватаркой и текстом */
+        }
+
+        .message-time {
+            font-size: 0.8em; /* Размер шрифта для времени */
+            color: #888; /* Цвет для времени */
+            margin-left: auto; /* Выравнивание времени вправо */
+        }
+
+        .chat-input {
+            display: flex;
+            justify-content: center; /* Центрирование формы ввода */
+            padding: 15px;
+            background-color: #f4f4f9;
+            border-top: 1px solid #ddd;
+            border-radius: 10px;
+        }
+
+            .chat-input input[type="text"] {
+                flex-grow: 1;
+                padding: 10px;
+                border: 1px solid #ddd;
+                border-radius: 20px;
+                margin-right: 10px;
+            }
+
+            .chat-input button {
+                padding: 10px 20px;
+                border: none;
+                border-radius: 20px;
+                background-color: #ff6b8e;
+                color: white;
+                cursor: pointer;
+                transition: background-color 0.3s;
+            }
+
+                .chat-input button:hover {
+                    background-color: #ff4d6e; /* Цвет кнопки при наведении */
+                }
+    </style>
+</head>
+<body>
+    <nav style="width:1000px">
+        <a href="@Url.Action("Main_employee", "Home")" class="nav-icon-left">
+            <img src="~/css/Main_Icon.png" alt="Profile Icon" class="profile-icon">
+        </a>
+        <div class="nav-links">
+            <a href="@Url.Action("Main_employee", "Home", new {  id = ViewBag.UserId })">Главная</a>
+            <a href="@Url.Action("List_employee_emp", "List")">Воспитатели</a>
+            <a href="@Url.Action("List_Group_employee", "List")">Расписание</a>
+            <a href="@Url.Action("Messenger_emp", "Chat" )">Сообщения</a>
+            <div class="animation"></div>
+        </div>
+        <a href="@Url.Action("Account_employee", "UserAccount", new {  id = ViewBag.UserId })">
+            <img src="~/css/my_acc.png" alt="Profile Icon" class="profile-icon">
+        </a>
+        <a href="@Url.Action("Main_no_auth", "Home")">
+            <img src="~/css/out.png" alt="Profile Icon" class="profile-icon">
+        </a>
+    </nav>
+
+    <div class="chat-container">
+        <div class="chat-header">
+            <button class="back-button" onclick="history.go(-1)">←</button>
+            <h4>@ViewBag.RecipientName</h4>
+        </div>
+        <div class="chat-messages">
+            @foreach (var message in Model)
+            {
+                <div class="message @(message.SenderId == loginUser ? "sent" : "received")">
+                    @if (message.Sender != null && message.Sender.Photo != null && message.Sender.Photo.Length > 0)
+                    {
+                        var base64 = Convert.ToBase64String(message.Sender.Photo);
+                        var imgSrc = $"data:image/png;base64,{base64}"; // Убедитесь, что тип изображения правильный
+                        <img class="user-avatar" src="@imgSrc" />
+                    }
+                    else
+                    {
+                        <img class="user-avatar" src="https://cdn-icons-png.flaticon.com/512/2854/2854354.png" />
+                    }
+                    <div>
+                        @message.Content
+                        @{
+                            DateTime messageTime;
+                            if (DateTime.TryParse(message.Timestamp, out messageTime))
+                            {
+                                <div class="message-time">@messageTime.ToString("HH:mm")</div> <!-- Отображение времени -->
+                            }
+                            else
+                            {
+                                <div class="message-time">Неизвестное время</div> <!-- Обработка ошибки -->
+                            }
+                        }
+                    </div>
+                </div>
+            }
+
+
+        </div>
+        <div class="chat-input">
+            <form method="post" action="@Url.Action("SendMessage", "Chat")">
+                <input type="text" name="messageContent" placeholder="Напишите сообщение..." required />
+                <input type="hidden" name="recipientId" value="@ViewBag.RecipientId" />
+                <button type="submit">Отправить</button>
+            </form>
+        </div>
+    </div>
+</body>
+<footer>
+    <div class="footer-container">
+        <div class="footer-column">
+            <h3>Контакты</h3>
+            <ul>
+                <li><a href="#">Казань</a></li>
+                <li>Email: <a href="mailto:children@hello.com">children@hello.com</a></li>
+                <li><a href="#">Расписание</a></li>
+                <li>Телефон: <a href="tel:+791765456732">+7 917 654-56-32</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3>О нас</h3>
+            <ul>
+                <li><a href="#">Главная</a></li>
+                <li><a href="#">Мессенджер</a></li>
+                <li><a href="#">Расписание</a></li>
+                <li><a href="#">Воспитатели</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3>Социальные сети</h3>
+            <ul>
+                <li><a href="#">VK</a></li>
+                <li><a href="#">Instagram</a></li>
+                <li><a href="#">WhatsApp</a></li>
+            </ul>
+        </div>
+    </div>
+</footer>
+</html>
+

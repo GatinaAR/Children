@@ -1,0 +1,126 @@
+﻿@model List<MyDiplom.Models.User>
+@{
+    ViewData["Title"] = "Чаты";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - вебЭкз</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <style>
+        body {
+            background-color: #ffeef2;
+        }
+
+
+        .user-list {
+            padding: 30px;
+            border: 2px dotted #ff6b8e;
+            box-shadow: 15px 15px 1px #FFEEF4, 15px 15px 1px 2px dotted #FFEEF4;
+            border-radius: 15px;
+            margin-top: 20px;
+            background-color: white;
+        }
+
+        .user-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, border 0.3s;
+            margin-bottom: 10px;
+        }
+
+            .user-item:hover {
+                background-color: #f1c1d1; /* Цвет при наведении */
+                border: 1px solid #ff6f81; /* Цвет рамки при наведении */
+            }
+
+        .user-photo {
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            margin-right: 15px;
+        }
+
+        h4 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #ff6b8e;
+        }
+    </style>
+</head>
+
+
+<body class="container">
+
+    <nav style="width:1000px">
+        <a href="@Url.Action("Main_employee", "Home")" class="nav-icon-left">
+            <img src="~/css/Main_Icon.png" alt="Profile Icon" class="profile-icon">
+        </a>
+        <div class="nav-links">
+            <a href="@Url.Action("Main_employee", "Home", new {  id = ViewBag.UserId })">Главная</a>
+            <a href="@Url.Action("List_employee_emp", "List")">Воспитатели</a>
+            <a href="@Url.Action("List_Group_employee", "List")">Расписание</a>
+            <a href="@Url.Action("Messenger_emp", "Chat" )">Сообщения</a>
+            <div class="animation"></div>
+        </div>
+        <a href="@Url.Action("Account_employee", "UserAccount", new {  id = ViewBag.UserId })">
+            <img src="~/css/my_acc.png" alt="Profile Icon" class="profile-icon">
+        </a>
+        <a href="@Url.Action("Main_no_auth", "Home")">
+            <img src="~/css/out.png" alt="Profile Icon" class="profile-icon">
+        </a>
+    </nav>
+    <div class="user-list">
+        <h4>Список пользователей</h4>
+        <div>
+            @foreach (var user in Model)
+            {
+                <div class="user-item" onclick="openChat(@user.UserId)">
+                    @if (user.Photo != null)
+                    {
+                        var base64 = Convert.ToBase64String(user.Photo);
+                        var imgSrc = $"data:image/gif;base64,{base64}";
+                        <img class="user-photo" src="@imgSrc" />
+                    }
+                    else
+                    {
+                        <img class="user-photo" src="https://cdn-icons-png.flaticon.com/512/2854/2854354.png" />
+                    }
+                    <span>@user.Username</span>
+                </div>
+            }
+        </div>
+    </div>
+
+    <script>
+        function openChat(recipientId) {
+            // Создаем форму для отправки данных
+            const form = document.createElement('form');
+            form.method = 'post';
+            form.action = '@Url.Action("Messenger_emp", "Chat")';
+
+            // Создаем скрытое поле для recipientId
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'recipientId';
+            input.value = recipientId;
+
+            // Добавляем скрытое поле в форму
+            form.appendChild(input);
+
+            // Добавляем форму в body и отправляем
+            document.body.appendChild(form);
+            form.submit();
+        }
+    </script>
+</body>
+
+</html>
